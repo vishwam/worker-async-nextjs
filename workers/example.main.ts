@@ -1,4 +1,4 @@
-import { RemoteClass } from './example.worker-remote';
+import { RemoteClass } from './example.worker';
 import promisify from 'worker-async';
 
 export class HostClass {
