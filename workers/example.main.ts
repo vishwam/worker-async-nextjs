@@ -11,7 +11,7 @@ export class Main {
 }
 
 export async function initWorker() {
-    const worker = require('./example.worker')();
+    const worker = require('./example.worker.js')();
     const { host, remote } = await promisify<ExampleWorker, Main>(worker, Main);
     return { worker, host, remote };
 }
