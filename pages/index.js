@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Nav from '../components/nav'
 
 // Initialize the web worker:
-import { initWorker } from '../workers/example.worker-host';
+import { initWorker } from '../workers/example.main';
 initWorker().then(async ({ worker, host, remote }) => {
   // now that it's initialized, make rpc-style calls:
   const increment = await remote.increment(42);

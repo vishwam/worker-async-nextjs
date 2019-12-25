@@ -1,4 +1,4 @@
-import { HostClass } from './example.worker-host';
+import { HostClass } from './example.main';
 
 export class RemoteClass {
     constructor(private host: HostClass) {
