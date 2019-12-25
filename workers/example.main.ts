@@ -1,8 +1,8 @@
-import { RemoteClass } from './example.worker';
+import { ExampleWorker } from './example.worker';
 import promisify from 'worker-async';
 
-export class HostClass {
-    constructor(private remote: RemoteClass) {
+export class Main {
+    constructor(private remote: ExampleWorker) {
     }
 
     async log(str: string) {
@@ -12,6 +12,6 @@ export class HostClass {
 
 export async function initWorker() {
     const worker = require('./example.worker')();
-    const { host, remote } = await promisify<RemoteClass, HostClass>(worker, HostClass);
+    const { host, remote } = await promisify<ExampleWorker, Main>(worker, Main);
     return { worker, host, remote };
 }

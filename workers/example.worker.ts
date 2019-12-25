@@ -1,13 +1,13 @@
 // The entry point for the worker thread:
 import promisify from 'worker-async';
-import { HostClass } from './example.main';
+import { Main } from './example.main';
 
-export class RemoteClass {
-    constructor(private host: HostClass) {
+export class ExampleWorker {
+    constructor(private main: Main) {
     }
 
     async increment(num: number) {
-        await this.host.log(`incrementing ${num}`);
+        await this.main.log(`incrementing ${num}`);
         return num + 1;
     }
 
@@ -18,6 +18,6 @@ export class RemoteClass {
     }
 }
 
-promisify(self as any, RemoteClass).catch(err => {
+promisify(self as any, ExampleWorker).catch(err => {
     console.error(err);
 });
