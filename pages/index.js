@@ -4,16 +4,7 @@ import Nav from '../components/nav'
 
 // Initialize the web worker:
 import { initWorker } from '../workers/example.main';
-initWorker().then(async ({ worker, host, remote }) => {
-  // now that it's initialized, make rpc-style calls:
-  const increment = await remote.increment(42);
-  console.log(`INCREMENT: ${increment}`);
-
-  // iterate over async generators:
-  for await (const num of remote.generator()) {
-    console.log(`GENERATED ${num}`);
-  }
-}).catch(err => {
+initWorker().catch(err => {
   console.error(err);
 });
 

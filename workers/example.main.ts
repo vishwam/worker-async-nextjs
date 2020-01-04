@@ -2,9 +2,6 @@ import { ExampleWorker } from './example.worker';
 import promisify from 'worker-async';
 
 export class Main {
-    constructor(private remote: ExampleWorker) {
-    }
-
     async log(str: string) {
         console.log(`LOG: ${str}`);
     }
@@ -12,6 +9,14 @@ export class Main {
 
 export async function initWorker() {
     const worker = require('./example.worker.js')();
-    const { host, remote } = await promisify<ExampleWorker, Main>(worker, Main);
-    return { worker, host, remote };
+    const remote: ExampleWorker = promisify(worker, new Main());
+    
+    // now that it's initialized, make rpc-style calls:
+    const increment = await remote.increment(42);
+    console.log(`INCREMENT: ${increment}`);
+
+    // iterate over async generators:
+    for await (const num of remote.generator()) {
+        console.log(`GENERATED ${num}`);
+    }
 }

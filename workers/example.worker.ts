@@ -3,11 +3,8 @@ import promisify from 'worker-async';
 import { Main } from './example.main';
 
 export class ExampleWorker {
-    constructor(private main: Main) {
-    }
-
     async increment(num: number) {
-        await this.main.log(`incrementing ${num}`);
+        await main.log(`incrementing ${num}`);
         return num + 1;
     }
 
@@ -18,6 +15,4 @@ export class ExampleWorker {
     }
 }
 
-promisify(self as any, ExampleWorker).catch(err => {
-    console.error(err);
-});
+const main: Main = promisify(self as any, new ExampleWorker());
